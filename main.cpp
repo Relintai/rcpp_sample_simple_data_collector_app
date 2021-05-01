@@ -20,12 +20,12 @@
 
 void create_databases() {
 
-	Settings *settings = Settings::get_singleton();
+	//Settings *settings = Settings::get_singleton();
 
-	if (!settings) {
-		printf("create_databases: Settings singleton is null!");
-		return;
-	}
+	//if (!settings) {
+	//	printf("create_databases: Settings singleton is null!");
+	//	return;
+	//}
 
 	/*
 	rapidjson::Value dbs = settings->settings["databases"];
@@ -36,12 +36,15 @@ void create_databases() {
 	}
 */
 
-	//DatabaseManager *dbm = DatabaseManager::get_singleton();
+	DatabaseManager *dbm = DatabaseManager::get_singleton();
 
 	//uint32_t index = dbm->create_database("mysql");
 	//Database *db = dbm->databases[0];
-	//db->_builder_creation_func = MysqlQueryBuilder::create;
 	//db->connect("");
+
+	uint32_t index = dbm->create_database("sqlite");
+	Database *db = dbm->databases[index];
+	db->connect("database.sqlite");
 }
 
 int main(int argc, char **argv) {
