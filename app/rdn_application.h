@@ -13,6 +13,7 @@
 class RDNApplication : public Application {
 public:
     static void index(Object *instance, Request *request);
+    static void get_sensor_data(Object *instance, Request *request);
 
     virtual void setup_routes();
     virtual void setup_middleware();
