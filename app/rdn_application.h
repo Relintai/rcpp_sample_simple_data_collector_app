@@ -1,6 +1,8 @@
 #ifndef RDN_APPLICATION_H
 #define RDN_APPLICATION_H
 
+#include <vector>
+
 #include "core/application.h"
 #include "core/object.h"
 
@@ -16,6 +18,8 @@ public:
     virtual void setup_middleware();
 
     virtual void migrate();
+
+    void mqtt_sensor_callback(const std::string &client_id, const std::vector<uint8_t> &data);
 
     RDNApplication();
     ~RDNApplication();

@@ -83,6 +83,7 @@ int main(int argc, char **argv) {
 
 	MQTTServer *mqtt_server = new MQTTServer();
 	mqtt_server->initialize();
+	mqtt_server->add_local_session("a/b", [](const std::string &client_id, const std::vector<uint8_t> &data, void* obj){ reinterpret_cast<RDNApplication*>(obj)->mqtt_sensor_callback(client_id, data); }, app);
 
 	if (!migrate) {
 		printf("Initialized!\n");

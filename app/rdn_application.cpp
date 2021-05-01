@@ -39,6 +39,10 @@ void RDNApplication::setup_middleware() {
 void RDNApplication::migrate() {
 }
 
+void RDNApplication::mqtt_sensor_callback(const std::string &client_id, const std::vector<uint8_t> &data) {
+	printf("%s\n", client_id.c_str());
+}
+
 RDNApplication::RDNApplication() :
 		Application() {
 }
