@@ -12,7 +12,7 @@ function init_chart() {
     const data = {
         labels: [],
         datasets: [{
-            label: 'Temperatures',
+            label: 'Sensor #1',
             data: [],
             fill: false,
             borderColor: 'rgb(75, 192, 192)',
