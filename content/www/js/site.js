@@ -40,7 +40,7 @@ function refresh_chart(rec_data) {
 
     setData(myChart, labels, d);
 
-    setTimeout(queue_update, 5000);
+    setTimeout(queue_update, 1000);
 }
 
 function setData(chart, labels, data) {
