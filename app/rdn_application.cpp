@@ -50,6 +50,7 @@ void RDNApplication::get_sensor_data(Object *instance, Request *request) {
 
 	json += "]";
 
+	request->response->setContentType("application/json");
 	request->response->setBody(json);
 	request->send();
 }
