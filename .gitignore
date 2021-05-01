@@ -27,5 +27,3 @@ game/android/build/*
 .dir-locals.el
 
 build.config
-
-content/*
