@@ -14,6 +14,9 @@ class RDNApplication : public Application {
 public:
     static void index(Object *instance, Request *request);
     static void get_sensor_data(Object *instance, Request *request);
+    
+    static void app_docs_page(Object *instance, Request *request);
+    static void engine_docs_page(Object *instance, Request *request);
 
     virtual void setup_routes();
     virtual void setup_middleware();
@@ -22,9 +25,13 @@ public:
 
     void mqtt_sensor_callback(const std::string &client_id, const std::vector<uint8_t> &data);
 
+    void load_md(const std::string &file_name, std::string *str);
+
     RDNApplication();
     ~RDNApplication();
 
+    static std::string engine_docs;
+    static std::string app_docs;
 };
 
 #endif

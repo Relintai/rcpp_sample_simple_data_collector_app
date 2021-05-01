@@ -3,12 +3,15 @@
 #include <iostream>
 #include <string>
 
-#include "core/request.h"
+#include <tinydir/tinydir.h>
+
+#include "core/database_manager.h"
 #include "core/file_cache.h"
 #include "core/handler_instance.h"
-#include "core/database_manager.h"
 #include "core/html_builder.h"
 #include "core/query_result.h"
+#include "core/request.h"
+#include "core/utils.h"
 
 void RDNApplication::index(Object *instance, Request *request) {
 	if (FileCache::get_singleton()->wwwroot_has_file("/index.html")) {
@@ -55,12 +58,24 @@ void RDNApplication::get_sensor_data(Object *instance, Request *request) {
 	request->send();
 }
 
+void RDNApplication::app_docs_page(Object *instance, Request *request) {
+	request->response->setBody(app_docs);
+	request->send();
+}
+
+void RDNApplication::engine_docs_page(Object *instance, Request *request) {
+	request->response->setBody(engine_docs);
+	request->send();
+}
+
 void RDNApplication::setup_routes() {
 	Application::setup_routes();
 
 	index_func = HandlerInstance(index);
 
 	main_route_map["sensor_data"] = HandlerInstance(get_sensor_data);
+	main_route_map["app_docs"] = HandlerInstance(app_docs_page);
+	main_route_map["engine_docs"] = HandlerInstance(engine_docs_page);
 }
 
 void RDNApplication::setup_middleware() {
@@ -70,10 +85,10 @@ void RDNApplication::setup_middleware() {
 }
 
 void RDNApplication::migrate() {
-	std::string sql = "CREATE TABLE sensor_data("  \
-						"id  INTEGER  PRIMARY KEY  AUTOINCREMENT," \
-						"client_id  TEXT  NOT NULL," \
-						"measurement  REAL);";
+	std::string sql = "CREATE TABLE sensor_data("
+					  "id  INTEGER  PRIMARY KEY  AUTOINCREMENT,"
+					  "client_id  TEXT  NOT NULL,"
+					  "measurement  REAL);";
 
 	DatabaseManager::get_singleton()->ddb->query_run(sql);
 }
@@ -95,15 +110,42 @@ void RDNApplication::mqtt_sensor_callback(const std::string &client_id, const st
 	}
 
 	//IMPORTANT: SQL INJECTION WILL WORK ON THIS, IF YOU DON"T FILTER THE CLINET IDS!!!! No prepared statement support yet! :(
-	std::string sql = "INSERT INTO sensor_data (client_id, measurement)" \
-						"VALUES ('" + client_id + "'," + d + ");";
+	std::string sql = "INSERT INTO sensor_data (client_id, measurement)"
+					  "VALUES ('" +
+					  client_id + "'," + d + ");";
 
 	DatabaseManager::get_singleton()->ddb->query_run(sql);
 }
 
+void RDNApplication::load_md(const std::string &file_name, std::string *str) {
+	FILE *f = fopen(file_name.c_str(), "r");
+
+	if (!f) {
+		printf("RDNApplication::load_md: Error opening file!\n");
+		return;
+	}
+
+	fseek(f, 0, SEEK_END);
+	long fsize = ftell(f);
+	fseek(f, 0, SEEK_SET); /* same as rewind(f); */
+
+	str->resize(fsize);
+
+	fread(&(*str)[0], 1, fsize, f);
+	fclose(f);
+
+	Utils::markdown_to_html(str);
+}
+
 RDNApplication::RDNApplication() :
 		Application() {
+
+	load_md("./engine/Readme.md", &engine_docs);
+	load_md("./Readme.md", &app_docs);
 }
 
 RDNApplication::~RDNApplication() {
 }
+
+std::string RDNApplication::engine_docs;
+std::string RDNApplication::app_docs;
