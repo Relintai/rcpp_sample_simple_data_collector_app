@@ -14,6 +14,8 @@
 
 #include "core/settings.h"
 
+#include "modules/mqtt_server/mqtt_server.h"
+
 #define MAIN_CLASS RDNApplication
 
 void create_databases() {
@@ -25,7 +27,7 @@ void create_databases() {
 		return;
 	}
 
-/*
+	/*
 	rapidjson::Value dbs = settings->settings["databases"];
 
 	if (!dbs.IsArray()) {
@@ -79,14 +81,20 @@ int main(int argc, char **argv) {
 	server->port = 8080;
 	server->initialize();
 
+	MQTTServer *mqtt_server = new MQTTServer();
+	mqtt_server->initialize();
+
 	if (!migrate) {
 		printf("Initialized!\n");
+
+		mqtt_server->run_async();
 		server->main_loop();
 	} else {
 		printf("Running migrations.\n");
 		app->migrate();
 	}
 
+	delete mqtt_server;
 	delete server;
 	delete app;
 	delete dbm;
