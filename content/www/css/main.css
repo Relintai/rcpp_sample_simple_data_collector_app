@@ -1,7 +1,7 @@
 body {
     padding: 0;
     margin: 0;
-    background-color: rgb(191, 191, 191);
+    background-color: rgb(255, 255, 255);
 }
 
 a:visited {
@@ -121,4 +121,10 @@ ul.pagination li.disabled {
 ul.pagination li a:hover {
     background-color: rgb(60, 60, 60);
     color: white;
+}
+
+.chart {
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
 }
