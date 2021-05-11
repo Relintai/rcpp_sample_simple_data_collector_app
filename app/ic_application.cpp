@@ -1,4 +1,4 @@
-#include "rdn_application.h"
+#include "ic_application.h"
 
 #include <iostream>
 #include <string>
@@ -13,7 +13,7 @@
 #include "core/request.h"
 #include "core/utils.h"
 
-void RDNApplication::index(Object *instance, Request *request) {
+void ICApplication::index(Object *instance, Request *request) {
 	if (FileCache::get_singleton()->wwwroot_has_file("/index.html")) {
 		std::string fp = FileCache::get_singleton()->wwwroot + "/index.html";
 
@@ -25,7 +25,7 @@ void RDNApplication::index(Object *instance, Request *request) {
 	request->send_error(404);
 }
 
-void RDNApplication::get_sensor_data(Object *instance, Request *request) {
+void ICApplication::get_sensor_data(Object *instance, Request *request) {
 	std::string sql = "SELECT * FROM sensor_data;";
 
 	QueryResult *res = DatabaseManager::get_singleton()->ddb->query(sql);
@@ -58,17 +58,17 @@ void RDNApplication::get_sensor_data(Object *instance, Request *request) {
 	request->send();
 }
 
-void RDNApplication::app_docs_page(Object *instance, Request *request) {
+void ICApplication::app_docs_page(Object *instance, Request *request) {
 	request->response->setBody(app_docs);
 	request->send();
 }
 
-void RDNApplication::engine_docs_page(Object *instance, Request *request) {
+void ICApplication::engine_docs_page(Object *instance, Request *request) {
 	request->response->setBody(engine_docs);
 	request->send();
 }
 
-void RDNApplication::setup_routes() {
+void ICApplication::setup_routes() {
 	Application::setup_routes();
 
 	index_func = HandlerInstance(index);
@@ -78,13 +78,13 @@ void RDNApplication::setup_routes() {
 	main_route_map["engine_docs"] = HandlerInstance(engine_docs_page);
 }
 
-void RDNApplication::setup_middleware() {
+void ICApplication::setup_middleware() {
 	Application::setup_middleware();
 
-	//middlewares.push_back(RDNApplication::session_middleware_func);
+	//middlewares.push_back(ICApplication::session_middleware_func);
 }
 
-void RDNApplication::migrate() {
+void ICApplication::migrate() {
 	std::string sql = "CREATE TABLE sensor_data("
 					  "id  INTEGER  PRIMARY KEY  AUTOINCREMENT,"
 					  "client_id  TEXT  NOT NULL,"
@@ -93,7 +93,7 @@ void RDNApplication::migrate() {
 	DatabaseManager::get_singleton()->ddb->query_run(sql);
 }
 
-void RDNApplication::mqtt_sensor_callback(const std::string &client_id, const std::vector<uint8_t> &data) {
+void ICApplication::mqtt_sensor_callback(const std::string &client_id, const std::vector<uint8_t> &data) {
 	if (client_id != "1") {
 		return;
 	}
@@ -117,11 +117,11 @@ void RDNApplication::mqtt_sensor_callback(const std::string &client_id, const st
 	DatabaseManager::get_singleton()->ddb->query_run(sql);
 }
 
-void RDNApplication::load_md(const std::string &file_name, std::string *str) {
+void ICApplication::load_md(const std::string &file_name, std::string *str) {
 	FILE *f = fopen(file_name.c_str(), "r");
 
 	if (!f) {
-		printf("RDNApplication::load_md: Error opening file!\n");
+		printf("ICApplication::load_md: Error opening file!\n");
 		return;
 	}
 
@@ -137,15 +137,15 @@ void RDNApplication::load_md(const std::string &file_name, std::string *str) {
 	Utils::markdown_to_html(str);
 }
 
-RDNApplication::RDNApplication() :
+ICApplication::ICApplication() :
 		Application() {
 
 	load_md("./engine/Readme.md", &engine_docs);
 	load_md("./Readme.md", &app_docs);
 }
 
-RDNApplication::~RDNApplication() {
+ICApplication::~ICApplication() {
 }
 
-std::string RDNApplication::engine_docs;
-std::string RDNApplication::app_docs;
+std::string ICApplication::engine_docs;
+std::string ICApplication::app_docs;

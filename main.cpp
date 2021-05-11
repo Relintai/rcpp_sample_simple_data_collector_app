@@ -6,7 +6,7 @@
 #include "core/file_cache.h"
 #include "core/http_server.h"
 
-#include "app/rdn_application.h"
+#include "app/ic_application.h"
 
 #include "core/database_manager.h"
 
@@ -16,7 +16,7 @@
 
 #include "modules/mqtt_server/mqtt_server.h"
 
-#define MAIN_CLASS RDNApplication
+#define MAIN_CLASS ICApplication
 
 void create_databases() {
 
@@ -86,7 +86,7 @@ int main(int argc, char **argv) {
 
 	MQTTServer *mqtt_server = new MQTTServer();
 	mqtt_server->initialize();
-	mqtt_server->add_local_session("a/b", [](const std::string &client_id, const std::vector<uint8_t> &data, void* obj){ reinterpret_cast<RDNApplication*>(obj)->mqtt_sensor_callback(client_id, data); }, app);
+	mqtt_server->add_local_session("a/b", [](const std::string &client_id, const std::vector<uint8_t> &data, void* obj){ reinterpret_cast<ICApplication*>(obj)->mqtt_sensor_callback(client_id, data); }, app);
 
 	if (!migrate) {
 		printf("Initialized!\n");

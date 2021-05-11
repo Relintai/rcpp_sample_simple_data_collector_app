@@ -1,5 +1,5 @@
-#ifndef RDN_APPLICATION_H
-#define RDN_APPLICATION_H
+#ifndef IC_APPLICATION_H
+#define IC_APPLICATION_H
 
 #include <vector>
 
@@ -10,7 +10,7 @@
 #include "modules/list_page/list_page.h"
 #include "modules/paged_article/paged_article.h"
 
-class RDNApplication : public Application {
+class ICApplication : public Application {
 public:
     static void index(Object *instance, Request *request);
     static void get_sensor_data(Object *instance, Request *request);
@@ -27,8 +27,8 @@ public:
 
     void load_md(const std::string &file_name, std::string *str);
 
-    RDNApplication();
-    ~RDNApplication();
+    ICApplication();
+    ~ICApplication();
 
     static std::string engine_docs;
     static std::string app_docs;
