@@ -53,7 +53,7 @@ exports = {
     'javascript': [],
 }
 
-engine_repository = [ ['https://github.com/Relintai/rcpp_cms.git', 'git@github.com:Relintai/rcpp_cms.git'], 'engine', '' ]
+engine_repository = [ ['https://github.com/Relintai/rcpp_framework.git', 'git@github.com:Relintai/rcpp_framework.git'], 'engine', '' ]
 
 module_repositories = [
 ]
