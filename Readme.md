@@ -29,7 +29,7 @@ clone this repo, then call `scons`, it will clone rcpp cms into a new engine dir
 You don't have to run it before / between builds.
 
 ```
-# git clone https://github.com/Relintai/school_industrial_comm_2021.git school_industrial_comm_2021
+# git clone https://github.com/Relintai/rcpp_sample_simple_data_collector_app.git rcpp_sample_simple_data_collector_app
 # cd school_industrial_comm_2021
 # scons
 ```
