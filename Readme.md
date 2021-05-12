@@ -20,7 +20,7 @@ Debian/Raspian:
 sudo apt-get install build-essential scons pkg-config libudev-dev yasm libevent libevent-dev
 ```
 
-Optionally if you install MariaDB/MySQL and/or PostgreSQL the compile system should pick it up. Make sure to gte a version
+Optionally if you install MariaDB/MySQL and/or PostgreSQL the compile system should pick it up. Make sure to get a version
 whoch contains the development headers (A bunch of .h files).
 
 ### Initial setup
@@ -65,7 +65,7 @@ Make sure to run it from the project's directory, as it needs data files.
 
 Now just open http://127.0.0.1:8080
 
-You can push floats to the "a/b" MQTT topics, and the new values will be save in the database.sqlite db, and will appear
+You can push floats to the "a/b" MQTT topics, and the new values will be save in the `database.sqlite` file, and will appear
 in your browser.
 
 If you have mosqitto installed you can use the `publish_random_data.py` or `publish_data.sh` scripts to automatically
@@ -75,6 +75,6 @@ push things into the proper MQTT topic.
 
 The main Application implementation is `app/ic_application.h`.
 
-The `main.cpp` contains the initalization code for the framework.
+The `main.cpp` contains the initialization code for the framework.
 
 The `content/www` folder is the wwwroot.
