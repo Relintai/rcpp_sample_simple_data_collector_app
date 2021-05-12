@@ -1,9 +1,80 @@
-# rcpp_cms_project
+# Data collection test app for rcpp framework
 
-Sample project for rcpp cms.
+Simple data collector app written with rcpp framework for a university project.
 
+## Compilation
 
-clone this repo, then call `scons`, it will clone rcpp cms into a new engine directory, then you can build using build words, like: `scons bl`.
+Will only work on linux! Works on the rasberry pi.
 
+### Dependencies
 
-Proper explanation for the time being: https://github.com/Relintai/broken_seals (Compiling section). (I'm using the same script.)
+Arch/Manjaro:
+
+``` 
+pacman -S --needed scons pkgconf gcc yasm libevent
+```
+
+Debian/Raspian:
+
+```
+sudo apt-get install build-essential scons pkg-config libudev-dev yasm libevent libevent-dev
+```
+
+Optionally if you install MariaDB/MySQL and/or PostgreSQL the compile system should pick it up. Make sure to gte a version
+whoch contains the development headers (A bunch of .h files).
+
+### Initial setup
+
+clone this repo, then call `scons`, it will clone rcpp cms into a new engine directory. Run this every time you update the project.
+You don't have to run it before / between builds.
+
+```
+# git clone https://github.com/Relintai/school_industrial_comm_2021.git school_industrial_comm_2021
+# cd school_industrial_comm_2021
+# scons
+```
+
+Now you can build the project like: `scons bl`.  ([b]uild [l]inux)
+
+Adding -jX to the build command will run the build on that many threads. Like: `scons bl -j4`.
+
+```
+# scons bl -j4
+- or -
+# ./build.sh
+```
+Now you can run it.
+
+First run migrations, this will create the necessary database tables:
+
+```
+# ./engine/bin/server m
+- or -
+# ./migrate.sh
+```
+
+Now you can start the server:
+
+```
+# ./engine/bin/server
+- or -
+# ./run.sh
+```
+
+Make sure to run it from the project's directory, as it needs data files.
+
+Now just open http://127.0.0.1:8080
+
+You can push floats to the "a/b" MQTT topics, and the new values will be save in the database.sqlite db, and will appear
+in your browser.
+
+If you have mosqitto installed you can use the `publish_random_data.py` or `publish_data.sh` scripts to automatically
+push things into the proper MQTT topic.
+
+## Structure
+
+The main Application implementation is `app/ic_application.h`.
+
+The `main.cpp` contains the initalization code for the framework.
+
+The `content/www` folder is the wwwroot.
