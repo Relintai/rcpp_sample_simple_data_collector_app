@@ -4,17 +4,17 @@
 
 #include "core/application.h"
 #include "core/file_cache.h"
-#include "core/http_server.h"
+#include "core/http/http_server.h"
 
 #include "app/ic_application.h"
 
-#include "core/database_manager.h"
+#include "core/database/database_manager.h"
 
 #include "database/db_init.h"
 
 #include "core/settings.h"
 
-#include "modules/mqtt_server/mqtt_server.h"
+#include "custom_modules/mqtt_server/mqtt_server.h"
 
 #define MAIN_CLASS ICApplication
 

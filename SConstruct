@@ -35,6 +35,11 @@ folders = [
     'app',
 ]
 
+module_folders = [
+    '../modules',
+    '../custom_modules',
+]
+
 main_file = 'main.cpp'
 
 repository_index = 0
@@ -335,6 +340,14 @@ if len(sys.argv) > 1:
 
         for f in folders:
             build_string += '../' + f
+            build_string += ';'
+
+        build_string += '" '
+
+        build_string += 'module_folders="'
+
+        for f in module_folders:
+            build_string += f
             build_string += ';'
 
         build_string += '" '

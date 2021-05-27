@@ -5,11 +5,11 @@
 
 #include <tinydir/tinydir.h>
 
-#include "core/database_manager.h"
+#include "core/database/database_manager.h"
 #include "core/file_cache.h"
 #include "core/handler_instance.h"
 #include "core/html_builder.h"
-#include "core/query_result.h"
+#include "core/database/query_result.h"
 #include "core/request.h"
 #include "core/utils.h"
 
