@@ -7,10 +7,10 @@
 
 #include "core/database/database_manager.h"
 #include "core/file_cache.h"
-#include "core/bry_http/handler_instance.h"
+#include "core/http/handler_instance.h"
 #include "core/html/html_builder.h"
 #include "core/database/query_result.h"
-#include "core/bry_http/request.h"
+#include "core/http/request.h"
 #include "core/utils.h"
 
 void ICApplication::index(Object *instance, Request *request) {
@@ -69,7 +69,7 @@ void ICApplication::engine_docs_page(Object *instance, Request *request) {
 }
 
 void ICApplication::setup_routes() {
-	BryWebApplication::setup_routes();
+	WebApplication::setup_routes();
 
 	index_func = HandlerInstance(index);
 
@@ -79,7 +79,7 @@ void ICApplication::setup_routes() {
 }
 
 void ICApplication::setup_middleware() {
-	BryWebApplication::setup_middleware();
+	WebApplication::setup_middleware();
 
 	//middlewares.push_back(ICApplication::session_middleware_func);
 }
@@ -138,7 +138,7 @@ void ICApplication::load_md(const std::string &file_name, std::string *str) {
 }
 
 ICApplication::ICApplication() :
-		BryWebApplication() {
+		WebApplication() {
 
 	load_md("./engine/Readme.md", &engine_docs);
 	load_md("./Readme.md", &app_docs);

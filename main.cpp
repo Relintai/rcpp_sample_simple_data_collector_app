@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-#include "core/bry_http/bry_web_application.h"
+#include "core/http/web_application.h"
 #include "core/file_cache.h"
 #include "core/bry_http/http_server.h"
 
@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
 
 	create_databases();
 
-	BryWebApplication *app = new MAIN_CLASS();
+	WebApplication *app = new MAIN_CLASS();
 
 	app->load_settings();
 	app->setup_routes();
