@@ -3,14 +3,14 @@
 
 #include <vector>
 
-#include "core/application.h"
+#include "core/bry_web_application.h"
 #include "core/object.h"
 
 #include "modules/message_page/message_page.h"
 #include "modules/list_page/list_page.h"
 #include "modules/paged_article/paged_article.h"
 
-class ICApplication : public Application {
+class ICApplication : public BryWebApplication {
 public:
     static void index(Object *instance, Request *request);
     static void get_sensor_data(Object *instance, Request *request);

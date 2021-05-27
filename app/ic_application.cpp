@@ -69,7 +69,7 @@ void ICApplication::engine_docs_page(Object *instance, Request *request) {
 }
 
 void ICApplication::setup_routes() {
-	Application::setup_routes();
+	BryWebApplication::setup_routes();
 
 	index_func = HandlerInstance(index);
 
@@ -79,7 +79,7 @@ void ICApplication::setup_routes() {
 }
 
 void ICApplication::setup_middleware() {
-	Application::setup_middleware();
+	BryWebApplication::setup_middleware();
 
 	//middlewares.push_back(ICApplication::session_middleware_func);
 }
@@ -138,7 +138,7 @@ void ICApplication::load_md(const std::string &file_name, std::string *str) {
 }
 
 ICApplication::ICApplication() :
-		Application() {
+		BryWebApplication() {
 
 	load_md("./engine/Readme.md", &engine_docs);
 	load_md("./Readme.md", &app_docs);
