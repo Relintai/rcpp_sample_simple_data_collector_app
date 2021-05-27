@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "core/bry_web_application.h"
+#include "core/bry_http/bry_web_application.h"
 #include "core/object.h"
 
 #include "modules/message_page/message_page.h"

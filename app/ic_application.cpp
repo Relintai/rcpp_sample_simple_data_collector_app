@@ -7,10 +7,10 @@
 
 #include "core/database/database_manager.h"
 #include "core/file_cache.h"
-#include "core/handler_instance.h"
+#include "core/bry_http/handler_instance.h"
 #include "core/html/html_builder.h"
 #include "core/database/query_result.h"
-#include "core/request.h"
+#include "core/bry_http/request.h"
 #include "core/utils.h"
 
 void ICApplication::index(Object *instance, Request *request) {

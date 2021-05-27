@@ -2,9 +2,9 @@
 #include <iostream>
 #include <string>
 
-#include "core/bry_web_application.h"
+#include "core/bry_http/bry_web_application.h"
 #include "core/file_cache.h"
-#include "core/http/http_server.h"
+#include "core/bry_http/http_server.h"
 
 #include "app/ic_application.h"
 
